@@ -1,0 +1,86 @@
+from selenium import webdriver
+from time import sleep
+import random
+from selenium.webdriver.common.by import By
+class Test_gmail:
+  #E-posta oluşturma  
+  def test_driver_open(self):
+    #Driver açma ve tam ekran yapma
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    print("Bu bir gmail botudur")
+    #Gmail oluştuma sitesine giriş
+    driver.get("https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp")
+    
+    #Random bilgileri girme
+    
+    name = driver.find_element(By.NAME,"firstName")
+    name_2 = driver.find_element(By.NAME,"lastName")
+    
+    say1= random.randint(6,15)
+    say2= random.randint(10,16)
+    liste = ("a","s","d","f","g","h","j","k","l","p","o","i","u","y","t","r","e","w","q","z","x","c","v","b","n","m")
+    
+    
+    #Random isim yazdırma
+    for i in range(0,say1+1):
+      harf= random.choice(liste)
+      name.send_keys(harf)
+      
+    #Random soyisim yazdırma
+    for x in range(1,say1+1):
+      harf_2 = random.choice(liste)
+      name_2.send_keys(harf_2)
+      
+    #E-posta adres ismi oluşturma
+    deger=True
+    say3 = random.randint(6,10)
+    gmail_random_adress = driver.find_element(By.ID,"username")
+   
+    for a in range(1,say3+1):
+      harf_3 = random.choice(liste)
+      gmail_random_adress.send_keys(harf_3)
+    #E-posta ve şifrenin kaydedileceği sözlüğü oluşturma
+    Bilgiler = []
+    #Şifre oluşturma
+    passwd = driver.find_element(By.NAME,"Passwd")
+    passwd_2 = driver.find_element(By.NAME,"ConfirmPasswd")
+    for z in range(0,say2+1):
+      sfr = random.randint(0,9)
+      passwd.send_keys(sfr)
+      passwd_2.send_keys(sfr)
+    sleep(5) 
+    #Onay Butonu  
+    btn = driver.find_element(By.ID,"accountDetailsNext")
+    btn.click()
+     
+    #Telefon numarası girme
+    
+    Tel_no = input("Telefon numarası giriniz ............ :")
+    Tel_no_label = driver.find_element(By.ID,"phoneNumberId")
+    
+    Tel_no_label.send_keys(Tel_no)
+    
+    #İleri butonu
+    print("Nuamra onayı için telefonunuza gelen kodu girin")
+    ileri_btn = driver.find_element(By.XPATH,"/html/body/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/div/button")
+    ileri_btn.click()
+    
+    #Onay kısmı
+    
+    code = input("Onay kodu giriniz ...... :")
+    code_label = driver.find_element(By.ID,"code")
+    code_label.send_keys(code)
+    
+    onay_btn = driver.find_element(By.XPATH,"/html/body/div[1]/div[1]/div[2]/div[1]/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div/div/button")
+    onay_btn.click()
+    sleep(30)
+    return driver
+
+    
+    
+
+deneme = Test_gmail()
+deneme.test_driver_open()
+
+ 
